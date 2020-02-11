@@ -22,11 +22,16 @@ public class Blob extends Slime {
     public void fight(Glob glob) {
         if (super.collide(glob)) {
             if (super.getStrength() >= glob.getStrength()) {
+                this.didWin(glob);
                 glob.die();
             } else {
+                glob.didWin(this);
                 this.die();
             }
         }
     }
-    
+    public Blob reproduce(Blob mate) {
+        Blob baby = new Blob(super.getX(), super.getY());
+        return baby;
+    }
 }

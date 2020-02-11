@@ -17,5 +17,10 @@ public class Glob extends Slime {
         
     public Glob(int x, int y) {
         super(SPEED, x, y, COLOR);
-    }  
+    }
+    
+    public Glob reproduce(Glob mate) {
+        Glob baby = new Glob(super.getX(), super.getY());
+        return baby;
+    }
 }

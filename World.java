@@ -44,7 +44,7 @@ public class World extends JPanel {
             globs.add(glob);    
         }
         for (int i = 0; i < 200; i++) {
-            int x = (int) (Math.random() * 800 / 2 + 800 / 2);
+            int x = (int) (Math.random() * 800);
             int y = (int) (Math.random() * 600);
             Food food = new Food(x,y);
             foods.add(food);
@@ -54,16 +54,7 @@ public class World extends JPanel {
     
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for (Sprite sprite : sprites) {
-            sprite.draw(g);
-            sprite.update();
-            for (Sprite other : sprites) {
-                if (sprite != other) {
-                    sprite.collide(other);
-                }
-            }
-            
-        }
+        
         for (Slime slime : slimes) {
             for (Food food : foods) {
                 slime.eat(food);
@@ -72,9 +63,30 @@ public class World extends JPanel {
         
         for (Blob blob : blobs) {
             for (Glob glob : globs) {
-                blob.fight(glob)
+                blob.fight(glob);
+            }
+            for (Blob otherBlob : blobs) {
+                if (blob == otherBlob) continue;
+                if (blob.collide(otherBlob))
+                    blobs.add(blob.reproduce(otherBlob));
             }
         }
+        for (Glob glob : globs) {
+            for (Glob otherGlob : globs) {
+                if (glob == otherGlob) continue;
+                if (glob.collide(otherGlob))
+                    globs.add(glob.reproduce(otherGlob));
+            }
+        }
+        for (Sprite sprite : sprites) {
+            sprite.draw(g);
+            sprite.update();
+            for (Sprite other : sprites) {
+                if (sprite != other) {
+                    sprite.collide(other);
+                }
+            }            
+        }        
         
         takeOutTheTrash();
     }

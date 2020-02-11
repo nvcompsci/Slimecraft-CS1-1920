@@ -31,6 +31,13 @@ public class Slime extends Sprite {
             food.die();
         }
     }
+     
+    
+     
+    public void didWin(Slime other) {
+        this.strength += this.strength - other.strength;
+        super.grow(1.2);
+    }
     
     @Override
     public void draw(Graphics g) {

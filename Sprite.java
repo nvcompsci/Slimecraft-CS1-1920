@@ -39,6 +39,11 @@ public abstract class Sprite {
         this.bounds = new Rectangle(x, y, width, height);
     }
     
+    public void grow(double rate) {
+        this.width *= rate;
+        this.height *= rate;
+    }
+    
     public abstract void draw(Graphics g);
 
     public int getWidth() {
@@ -47,6 +52,10 @@ public abstract class Sprite {
 
     public int getX() {
         return x;
+    }
+
+    public int getSpeed() {
+        return speed;
     }
 
     public void die() {
