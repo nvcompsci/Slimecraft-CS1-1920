@@ -16,8 +16,8 @@ import javax.swing.JPanel;
  * @author jword
  */
 public class World extends JPanel {
-    //private ArrayList<Blob> blobs = new ArrayList<>();    
-    //private ArrayList<Glob> globs = new ArrayList<>();    
+    private ArrayList<Blob> blobs = new ArrayList<>();    
+    private ArrayList<Glob> globs = new ArrayList<>();    
     private ArrayList<Sprite> sprites = new ArrayList<>();
     private ArrayList<Food> foods = new ArrayList<>();   
     private ArrayList<Slime> slimes = new ArrayList<>();   
@@ -33,6 +33,7 @@ public class World extends JPanel {
             Blob blob = new Blob(x,y);
             sprites.add(blob);
             slimes.add(blob);
+            blobs.add(blob);
         }
         for (int i = 0; i < 500; i++) {
             int x = (int) (Math.random() * 800 / 2 + 800 / 2);
@@ -40,6 +41,7 @@ public class World extends JPanel {
             Glob glob = new Glob(x,y);
             sprites.add(glob);    
             slimes.add(glob);    
+            globs.add(glob);    
         }
         for (int i = 0; i < 200; i++) {
             int x = (int) (Math.random() * 800 / 2 + 800 / 2);
@@ -67,6 +69,42 @@ public class World extends JPanel {
                 slime.eat(food);
             }            
         }
+        
+        for (Blob blob : blobs) {
+            for (Glob glob : globs) {
+                blob.fight(glob)
+            }
+        }
+        
+        takeOutTheTrash();
+    }
+    
+    private void takeOutTheTrash() {
+        ArrayList<Sprite> trash = new ArrayList<>();
+        for (Sprite sprite : sprites) {
+            if (!sprite.isAlive())
+                trash.add(sprite);
+        }
+        sprites.removeAll(trash);
+        trash.clear();
+        for (Food food : foods) {
+            if (!food.isAlive())
+                trash.add(food);
+        }
+        foods.removeAll(trash);
+        trash.clear();
+        for (Blob blob : blobs) {
+            if (!blob.isAlive())
+                trash.add(blob);
+        }
+        blobs.removeAll(trash);
+        trash.clear();
+        for (Glob glob : globs) {
+            if (!glob.isAlive())
+                trash.add(glob);
+        }
+        globs.removeAll(trash);
+        trash.clear();        
     }
     
     private class ScheduleTask extends TimerTask {
