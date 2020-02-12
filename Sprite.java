@@ -94,6 +94,13 @@ public abstract class Sprite {
         }
         return collided;
     }
+    
+    public void collideWorldBounds(int cWidth, int cHeight) {
+        if (this.x < 0 || this.x + this.width > cWidth)
+            this.vx = -this.vx;
+        if (this.y < 0 || this.y + this.height > cHeight)
+            this.vy = -this.vy;       
+    }
 
     public Rectangle getBounds() {
         return bounds;
@@ -102,5 +109,6 @@ public abstract class Sprite {
     public void didCollide() {
         this.vx = -this.vx;
         this.vy = -this.vy;
+        this.update();
     }
 }

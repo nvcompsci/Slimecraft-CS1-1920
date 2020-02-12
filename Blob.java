@@ -31,7 +31,9 @@ public class Blob extends Slime {
         }
     }
     public Blob reproduce(Blob mate) {
-        Blob baby = new Blob(super.getX(), super.getY());
+        int newX = super.getX() + (int) (Math.random() * 10 - 5);
+        int newY = super.getY() + (int) (Math.random() * 10 - 5);
+        Blob baby = new Blob(newX, newY);
         return baby;
     }
 }

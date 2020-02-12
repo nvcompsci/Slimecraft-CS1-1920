@@ -25,7 +25,7 @@ public class Slime extends Sprite {
     }
     
      public void eat(Food food) {
-        if (super.getBounds().intersects(food.getBounds()) && food.isAlive()) {
+        if (super.collide(food)) {
             super.setHeight(super.getHeight() + 5);
             super.setWidth(super.getWidth() + 5);
             food.die();
