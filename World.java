@@ -27,7 +27,7 @@ public class World extends JPanel {
         timer = new Timer();
         timer.scheduleAtFixedRate(new ScheduleTask(), 100, 1000/12);
         super.setSize(800, 600);
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 80; i++) {
             int x = (int) (Math.random() * 800 / 2);
             int y = (int) (Math.random() * 600);
             Blob blob = new Blob(x,y);
@@ -35,7 +35,7 @@ public class World extends JPanel {
             slimes.add(blob);
             blobs.add(blob);
         }
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 80; i++) {
             int x = (int) (Math.random() * 800 / 2 + 800 / 2);
             int y = (int) (Math.random() * 600);
             Glob glob = new Glob(x,y);
@@ -43,7 +43,7 @@ public class World extends JPanel {
             slimes.add(glob);    
             globs.add(glob);    
         }
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 75; i++) {
             int x = (int) (Math.random() * 800);
             int y = (int) (Math.random() * 600);
             Food food = new Food(x,y);
@@ -70,15 +70,17 @@ public class World extends JPanel {
             }
             for (Blob otherBlob : blobs) {
                 if (blob == otherBlob) continue;
-                if (blob.collide(otherBlob) && Math.random() < 0.03)
+                if (blob.collide(otherBlob) && Math.random() < 0.05) {
                     newBlobs.add(blob.reproduce(otherBlob));
+                }
             }
         }
         for (Glob glob : globs) {
             for (Glob otherGlob : globs) {
                 if (glob == otherGlob) continue;
-                if (glob.collide(otherGlob) && Math.random() < 0.03)
+                if (glob.collide(otherGlob) && Math.random() < 0.05) {
                     newGlobs.add(glob.reproduce(otherGlob));
+                }
             }
         }
         for (Sprite sprite : sprites) {
@@ -94,6 +96,8 @@ public class World extends JPanel {
     private void addNewSlimes(ArrayList<Blob> newBlobs, ArrayList<Glob> newGlobs) {
         blobs.addAll(newBlobs);
         globs.addAll(newGlobs);
+        sprites.addAll(newBlobs);
+        sprites.addAll(newGlobs);
     }
     
     private void takeOutTheTrash() {

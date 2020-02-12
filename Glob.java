@@ -20,8 +20,8 @@ public class Glob extends Slime {
     }
     
     public Glob reproduce(Glob mate) {
-        int newX = super.getX() + (int) (Math.random() * 30 - 15);
-        int newY = super.getY() + (int) (Math.random() * 30 - 15);
+        int newX = super.getX() + (int) (Math.random() * 60 - 30);
+        int newY = super.getY() + (int) (Math.random() * 60 - 30);
         Glob baby = new Glob(newX, newY);
         return baby;
     }
