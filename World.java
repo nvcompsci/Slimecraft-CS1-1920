@@ -6,6 +6,8 @@
 package slimecraft;
 
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -15,15 +17,17 @@ import javax.swing.JPanel;
  *
  * @author jword
  */
-public class World extends JPanel {
+public class World extends JPanel implements MouseListener {
     private ArrayList<Blob> blobs = new ArrayList<>();    
     private ArrayList<Glob> globs = new ArrayList<>();    
     private ArrayList<Sprite> sprites = new ArrayList<>();
     private ArrayList<Food> foods = new ArrayList<>();   
     private ArrayList<Slime> slimes = new ArrayList<>();    
     Timer timer;
+    int frames = 0;
     
     public World() {
+        this.addMouseListener(this);
         timer = new Timer();
         timer.scheduleAtFixedRate(new ScheduleTask(), 100, 1000/12);
         super.setSize(800, 600);
@@ -54,6 +58,11 @@ public class World extends JPanel {
     
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        frames++;
+        
+        if (frames == 36) {
+            g.drawString("Hi!",200,200);
+        }
         
         for (Slime slime : slimes) {
             for (Food food : foods) {
@@ -71,7 +80,7 @@ public class World extends JPanel {
             for (Blob otherBlob : blobs) {
                 if (blob == otherBlob) continue;
                 if (blob.collide(otherBlob) && Math.random() < 0.05) {
-                    newBlobs.add(blob.reproduce(otherBlob));
+                    //newBlobs.add(blob.reproduce(otherBlob));
                 }
             }
         }
@@ -79,7 +88,7 @@ public class World extends JPanel {
             for (Glob otherGlob : globs) {
                 if (glob == otherGlob) continue;
                 if (glob.collide(otherGlob) && Math.random() < 0.05) {
-                    newGlobs.add(glob.reproduce(otherGlob));
+                    //newGlobs.add(glob.reproduce(otherGlob));
                 }
             }
         }
@@ -133,5 +142,30 @@ public class World extends JPanel {
         public void run() {
             repaint();
         }
+    }
+    
+    @Override
+    public void mouseExited(MouseEvent event) {
+        
+    }
+    @Override
+    public void mouseEntered(MouseEvent event) {
+        
+    }
+    @Override
+    public void mousePressed(MouseEvent event) {
+        
+    }
+    @Override
+    public void mouseReleased(MouseEvent event) {
+        
+    }
+    @Override
+    public void mouseClicked(MouseEvent event) {
+        System.out.printf("\nMouse Click at (%d, %d)",event.getX(), event.getY());
+        Blob blob = new Blob(event.getX(), event.getY());
+        blobs.add(blob);
+        slimes.add(blob);
+        sprites.add(blob);
     }
 }

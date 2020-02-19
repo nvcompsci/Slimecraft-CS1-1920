@@ -7,13 +7,15 @@ package slimecraft;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.JFrame;
 
 /**
  *
  * @author jword
  */
-public class Slimecraft extends JFrame  {
+public class Slimecraft extends JFrame {
 
     /**
      * @param args the command line arguments
@@ -37,5 +39,7 @@ public class Slimecraft extends JFrame  {
             }
         });
     }
+    
+    
     
 }
