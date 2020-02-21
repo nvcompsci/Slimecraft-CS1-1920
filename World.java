@@ -6,6 +6,7 @@
 package slimecraft;
 
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class World extends JPanel implements MouseListener {
     private ArrayList<Slime> slimes = new ArrayList<>();    
     Timer timer;
     int frames = 0;
+    KeyEvent lastPressed;
     
     public World() {
         this.addMouseListener(this);
@@ -38,6 +40,7 @@ public class World extends JPanel implements MouseListener {
             sprites.add(blob);
             slimes.add(blob);
             blobs.add(blob);
+            System.out.println(blob);
         }
         for (int i = 0; i < 80; i++) {
             int x = (int) (Math.random() * 800 / 2 + 800 / 2);
@@ -144,6 +147,11 @@ public class World extends JPanel implements MouseListener {
         }
     }
     
+    public void keyPressed(KeyEvent event) {
+        lastPressed = event;
+        
+    }
+    
     @Override
     public void mouseExited(MouseEvent event) {
         
@@ -163,9 +171,32 @@ public class World extends JPanel implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent event) {
         System.out.printf("\nMouse Click at (%d, %d)",event.getX(), event.getY());
-        Blob blob = new Blob(event.getX(), event.getY());
-        blobs.add(blob);
-        slimes.add(blob);
-        sprites.add(blob);
+        
+        switch (lastPressed.getKeyCode()) {
+            case KeyEvent.VK_G :
+                System.out.println("G");
+                Glob glob = new Glob(event.getX(), event.getY());
+                globs.add(glob);
+                slimes.add(glob);
+                sprites.add(glob);
+                break;
+            case KeyEvent.VK_B :
+                System.out.println("B");
+                Blob blob = new Blob(event.getX(), event.getY());
+                blobs.add(blob);
+                slimes.add(blob);
+                sprites.add(blob);
+                break;
+            case KeyEvent.VK_F :
+                System.out.println("F");
+                Food food = new Food(event.getX(), event.getY());
+                foods.add(food);
+                sprites.add(food);
+                break;
+            case KeyEvent.VK_V :
+                System.out.println("V");
+                break;
+        }
+        
     }
 }

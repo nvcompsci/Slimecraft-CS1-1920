@@ -33,6 +33,11 @@ public abstract class Sprite {
         this.bounds = new Rectangle(x, y, width, height);
     }
     
+    @Override
+    public String toString() {
+        return String.format("Sprite at (%d, %d) with color %s", x, y, color);
+    }
+    
     public void update() {
         this.x += this.vx;
         this.y += this.vy;

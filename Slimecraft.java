@@ -33,10 +33,10 @@ public class Slimecraft extends JFrame {
             public void keyPressed(KeyEvent e) {
                 c.keyPressed(e);
             }
-            @Override
-            public void keyReleased(KeyEvent e) {
-                c.keyReleased(e);
-            }
+//            @Override
+//            public void keyReleased(KeyEvent e) {
+//                c.keyReleased(e);
+//            }
         });
     }
     
